@@ -1,0 +1,23 @@
+{
+  "name": "stateless",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.20",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@fastify/cors": "^8.5.0",
+    "@fastify/rate-limit": "^9.0.1",
+    "@thunder04/supermap": "^3.0.4",
+    "@types/pg": "^8.11.4",
+    "fastify": "^4.26.2",
+    "tweetnacl": "^1.0.3"
+  }
+}
