@@ -2,13 +2,11 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { Config } from "../types";
 
 export class Interaction {
-    #request: FastifyRequest;
     #reply: FastifyReply;
     readonly data: BaseInteractionData;
     readonly config: Config;
     hasReplied = false;
-    constructor(req: FastifyRequest, rep: FastifyReply, data: BaseInteractionData, config: Config) {
-        this.#request = req;
+    constructor(_req: FastifyRequest, rep: FastifyReply, data: BaseInteractionData, config: Config) {
         this.#reply = rep;
         this.data = data;
         this.config = config;

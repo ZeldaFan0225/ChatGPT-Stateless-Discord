@@ -25,14 +25,12 @@ export async function createCommands() {
         }
     ]
 
-    const res = await fetch(`${process.env["DISCORD_BASE_URL"]}/applications/${process.env["CLIENT_ID"]}/commands`, {
+    await fetch(`${process.env["DISCORD_BASE_URL"]}/applications/${process.env["CLIENT_ID"]}/commands`, {
         method: "PUT",
         headers: {
             "Authorization": `Bot ${process.env["BOT_TOKEN"]}`,
             "Content-Type": "application/json"
         },
         body: JSON.stringify(commands)
-    }).then(res => res.json())
-
-    console.log(res);
+    }).then(res => res.json()).then(console.log)
 }

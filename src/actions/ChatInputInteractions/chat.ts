@@ -11,6 +11,7 @@ export async function handleChat(interaction: ChatInputInteraction) {
     const userMessages = []
 
     if(imageData) {
+        if(!imageData.content_type?.startsWith("image")) return await interaction.error("The image must be an image.")
         userMessages.push({
             type: "image_url" as const,
             image_url: {
@@ -43,7 +44,6 @@ export async function handleChat(interaction: ChatInputInteraction) {
 
     if(getsFlagged) return await interaction.error("Your prompt has been flagged.")
 
-    console.log("requesting completion...")
     const completion = await ChatGPT.requestChatCompletion(messages, interaction.data.id, interaction.config)
 
     interaction.followUp({

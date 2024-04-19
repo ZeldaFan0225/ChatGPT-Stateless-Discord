@@ -7,7 +7,6 @@ export class ChatInputInteraction extends Interaction {
     constructor(req: FastifyRequest, rep: FastifyReply, data: ChatInputInteractionData, config: Config) {
         super(req, rep, data, config);
         this.data = data;
-        console.log(data)
     }
 }
 

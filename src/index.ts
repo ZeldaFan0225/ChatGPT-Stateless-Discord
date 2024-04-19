@@ -35,7 +35,7 @@ async function startWebServer() {
 	});
 	
 	await app.register(cors, {
-		origin: process.env["MODE"] == "prod" ? process.env["DOMAIN"]! : '*',
+		origin: '*',
 	});
 
 	app.post("/", (r, p) => handlePostRequest(r, p, config))
@@ -45,4 +45,4 @@ async function startWebServer() {
     })
 }
 
-//createCommands()
+createCommands()

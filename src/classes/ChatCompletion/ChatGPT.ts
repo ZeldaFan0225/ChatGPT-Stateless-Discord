@@ -14,12 +14,10 @@ export class ChatGPT {
         })
 
         const data: OpenAIModerationResponse = await openai_req.json()
-        console.log(data)
         return !!data?.results[0]?.flagged
     }
     
     static async requestChatCompletion(messages: ChatCompletionMessages[], user_id: string, config: Config) {
-        console.log(messages)
         const openai_req = await fetch(`https://api.openai.com/v1/chat/completions`, {
             method: "POST",
             headers: {
@@ -35,7 +33,6 @@ export class ChatGPT {
         })
 
         const data: OpenAIChatCompletionResponse = await openai_req.json()
-        console.log(data)
 
         if(!data?.id) throw new Error("Unable to generate response")
         
