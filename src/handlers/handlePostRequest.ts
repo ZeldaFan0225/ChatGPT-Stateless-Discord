@@ -28,6 +28,8 @@ export async function handlePostRequest(req: FastifyRequest, rep: FastifyReply, 
     const user = body?.["member"]?.["user"] || body?.["user"]
     body["user"] = user
 
+    if(!config.whitelist_users.includes(user.id)) rep.code(401).send({message: "Unauthorized"})
+
     switch(body["type"]) {
         case 1: {
             rep.code(200).send({type: 1, content: "PONG"});

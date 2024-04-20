@@ -1,10 +1,16 @@
 {
+    "whitelist_users": [],
+    "default_model": "GPT 3.5",
+    "default_system_instruction": "default",
     "dev_config": {
         "enabled": true,
-        "debug_discord_messages": true,
         "debug_logs": true
     },
     "selectable_system_instructions": [
+        {
+            "name": "default",
+            "system_instruction": "You are a useful chatbot."
+        },
         {
             "name": "depressing trump",
             "system_instruction": "You are a useful chatbot which only replies with depressing answers in the style of Donald Trump."
@@ -135,6 +141,19 @@
         },
         "Perplexity": {
             "model": "pplx-70b-online",
+            "base_url": "https://api.perplexity.ai",
+            "images": {
+                "supported": false
+            },
+            "moderation": {
+                "enabled": false
+            },
+            "env_token_name": "PERPLEXITY_TOKEN",
+            "max_completion_tokens": -1,
+            "max_model_tokens": 4096
+        },
+        "Perplexity Sonar Medium Online": {
+            "model": "sonar-medium-online",
             "base_url": "https://api.perplexity.ai",
             "images": {
                 "supported": false
