@@ -37,13 +37,13 @@ export class Interaction {
     }
 
     async followUp(data: Record<string, any>) {
-        fetch(`${process.env["DISCORD_BASE_URL"]}/webhooks/${this.data.application_id}/${this.data.token}`, {
+        return await fetch(`${process.env["DISCORD_BASE_URL"]}/webhooks/${this.data.application_id}/${this.data.token}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data)
-        })
+        }).then(res => res.json())
     }
 
     async followUpWithFile(data: Record<string, any>, file: Blob, name: string) {
@@ -51,10 +51,10 @@ export class Interaction {
         formData.set("payload_json", JSON.stringify(data));
         formData.set("files[0]", file, name);
 
-        fetch(`${process.env["DISCORD_BASE_URL"]}/webhooks/${this.data.application_id}/${this.data.token}`, {
+        return await fetch(`${process.env["DISCORD_BASE_URL"]}/webhooks/${this.data.application_id}/${this.data.token}`, {
             method: "POST",
             body: formData
-        })
+        }).then(res => res.json())
     }
 }
 

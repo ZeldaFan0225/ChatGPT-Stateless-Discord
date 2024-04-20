@@ -55,8 +55,17 @@ export async function handleChat(interaction: ChatInputInteraction) {
 
     const completion = await ChatGPT.requestChatCompletion(messages, model_config, interaction.data.user.id)
 
-    interaction.followUp({
-        content: completion.choices[0]?.message.content || "No response",
-        flags: ephemeral ? 64 : 0
-    })
+    const reply = completion.choices[0]?.message.content || "No response";
+    if(reply.length > 2000) {
+        const res = await interaction.followUpWithFile({
+            flags: ephemeral ? 64 : 0
+        }, new Blob([reply], {type: "text/plain"}), "response.txt")
+        if(interaction.config.dev_config?.enabled && interaction.config.dev_config.debug_logs) console.log(res?.errors || res)
+    } else {
+        const res = await interaction.followUp({
+            content: reply,
+            flags: ephemeral ? 64 : 0
+        })
+        if(interaction.config.dev_config?.enabled && interaction.config.dev_config.debug_logs) console.log(res?.errors || res)
+    }
 }
