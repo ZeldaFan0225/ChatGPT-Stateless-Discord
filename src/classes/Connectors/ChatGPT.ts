@@ -1,7 +1,8 @@
-import { ChatCompletionMessages, ModelConfiguration, OpenAIChatCompletionResponse, OpenAIModerationResponse } from "../../types"
+import { ChatCompletionMessages, Config, ModelConfiguration, OpenAIChatCompletionResponse, OpenAIModerationResponse } from "../../types"
 import GPT3Tokenizer from 'gpt3-tokenizer';
 
 export class ChatGPT {
+    static config: Config
     static #tokenizer = new GPT3Tokenizer({type: "gpt3"})
 
     static tokenizeString(text: string) {
@@ -26,10 +27,12 @@ export class ChatGPT {
         })
 
         const data: OpenAIModerationResponse = await openai_req.json()
+        if(this.config.dev_config?.enabled && this.config.dev_config.debug_logs) console.log(data)
         return !!data?.results[0]?.flagged
     }
     
     static async requestChatCompletion(messages: ChatCompletionMessages[], model_config: ModelConfiguration, user_id: string) {
+        if(this.config.dev_config?.enabled && this.config.dev_config.debug_logs) console.log(messages, model_config)
         const total_count = messages.map(m =>
             this.tokenizeString(
                 typeof m.content === "string" ?
@@ -64,7 +67,7 @@ export class ChatGPT {
         })
 
         const data: OpenAIChatCompletionResponse = await openai_req.json()
-        console.log(data)
+        if(this.config.dev_config?.enabled && this.config.dev_config.debug_logs) console.log(data)
 
         if(!data?.id) throw new Error("Unable to generate response")
         

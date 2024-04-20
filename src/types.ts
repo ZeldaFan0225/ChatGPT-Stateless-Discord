@@ -4,7 +4,6 @@ export interface Config {
     default_system_instruction: string;
     dev_config?: {
         enabled?: boolean;
-        debug_discord_messages?: boolean;
         debug_logs?: boolean;
     };
     selectable_system_instructions?: {
