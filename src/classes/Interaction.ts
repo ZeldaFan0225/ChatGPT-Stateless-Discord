@@ -2,12 +2,12 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { Config } from "../types";
 
 export class Interaction {
-    #reply: FastifyReply;
+    protected fastifyReply: FastifyReply;
     readonly data: BaseInteractionData;
     readonly config: Config;
     hasReplied = false;
     constructor(_req: FastifyRequest, rep: FastifyReply, data: BaseInteractionData, config: Config) {
-        this.#reply = rep;
+        this.fastifyReply = rep;
         this.data = data;
         this.config = config;
     }
@@ -15,13 +15,13 @@ export class Interaction {
     deferReply(ephemeral = false) {
         if(this.hasReplied) return;
         this.hasReplied = true;
-        this.#reply.code(200).send({type: 5, data: {flags: ephemeral ? 64 : 0}})
+        this.fastifyReply.code(200).send({type: 5, data: {flags: ephemeral ? 64 : 0}})
     }
 
     reply(data: Record<string, any>) {
         if(this.hasReplied) return;
         this.hasReplied = true;
-        this.#reply.code(200).send({type: 4, data})
+        this.fastifyReply.code(200).send({type: 4, data})
     }
 
     async error(content: string) {

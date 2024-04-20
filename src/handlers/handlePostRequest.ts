@@ -3,6 +3,8 @@ import { handleApplicationCommand } from "../handlers/handleApplicationCommand";
 import nacl from "tweetnacl";
 import { Config } from "../types";
 import { ChatInputInteraction, ChatInputInteractionData } from "../classes/ChatInputInteraction";
+import { AutocompleteInteraction, AutocompleteInteractionData } from "../classes/AutocompleteInteraction";
+import { handleAutocomplete } from "./handleAutocomplete";
 
 export async function handlePostRequest(req: FastifyRequest, rep: FastifyReply, config: Config) {
     const body = req.body as Record<string, any>
@@ -31,6 +33,12 @@ export async function handlePostRequest(req: FastifyRequest, rep: FastifyReply, 
         case 2: {
             const interaction = new ChatInputInteraction(req, rep, body as ChatInputInteractionData, config)
             handleApplicationCommand(interaction).catch(console.error)
+            break;
+        }
+        case 4: {
+            const interaction = new AutocompleteInteraction(req, rep, body as AutocompleteInteractionData, config)
+            handleAutocomplete(interaction).catch(console.error)
+            break;
         }
     }
 }

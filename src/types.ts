@@ -1,8 +1,39 @@
 export interface Config {
-    completion_configuration?: {
-        system?: string;
-        model?: string,
-        max_tokens?: number
+    default_model: string;
+    default_system_instruction: string;
+    dev_config?: {
+        enabled?: boolean;
+        debug_discord_messages?: boolean;
+        debug_logs?: boolean;
+    };
+    selectable_system_instructions?: {
+        name: string;
+        system_instruction: string;
+    }[];
+    models?: Record<string, ModelConfiguration>;
+}
+
+export interface ModelConfiguration {
+    model: string,
+    base_url?: string,
+    env_token_name?: string
+    images?: {supported: false} | {supported: true, detail?: "high" | "low" | "auto"},
+    max_completion_tokens?: number,
+    max_model_tokens?: number,
+    moderation?: {
+        enabled?: boolean
+    },
+    defaults?: {
+        frequency_penalty?: number,
+        logit_bias?: Record<string, number>,
+        logprobs?: boolean,
+        top_logprobs?: number,
+        presence_penalty?: number,
+        response_format?: {type?: "text" | "json_object"},
+        seed?: number,
+        stop?: string | string[],
+        temperature?: number,
+        top_p?: number
     }
 }
 

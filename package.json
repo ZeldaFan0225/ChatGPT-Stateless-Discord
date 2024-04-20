@@ -18,6 +18,7 @@
     "@thunder04/supermap": "^3.0.4",
     "@types/pg": "^8.11.4",
     "fastify": "^4.26.2",
+    "gpt3-tokenizer": "^1.1.5",
     "tweetnacl": "^1.0.3"
   }
 }

@@ -8,9 +8,21 @@ export async function createCommands() {
             contexts: [0, 1, 2],
             options: [{
                 type: 3,
-                name: "prompt",
-                description: "The Prompt",
+                name: "message",
+                description: "The message to send to the AI",
                 required: true,
+            },{
+                type: 3,
+                name: "system_instruction",
+                description: "The system instruction to use",
+                required: false,
+                autocomplete: true
+            },{
+                type: 3,
+                name: "model",
+                description: "The model to use for this request",
+                required: false,
+                autocomplete: true
             },{
                 type: 11,
                 name: "image",

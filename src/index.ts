@@ -3,7 +3,6 @@ import rate_limit from "@fastify/rate-limit"
 import cors from "@fastify/cors"
 import { readFileSync, existsSync } from "fs";
 import { Config } from "./types";
-import { createCommands } from "./_misc/createCommands";
 import { handlePostRequest } from "./handlers/handlePostRequest";
 
 const RE_INI_KEY_VAL = /^\s*([\w.-]+)\s*=\s*(.*)?\s*$/;
@@ -45,4 +44,4 @@ async function startWebServer() {
     })
 }
 
-createCommands()
+//createCommands()
