@@ -4,6 +4,7 @@ import cors from "@fastify/cors"
 import { readFileSync, existsSync } from "fs";
 import { Config } from "./types";
 import { handlePostRequest } from "./handlers/handlePostRequest";
+import { createCommands } from "./_misc/createCommands";
 
 const RE_INI_KEY_VAL = /^\s*([\w.-]+)\s*=\s*(.*)?\s*$/;
 
@@ -37,11 +38,11 @@ async function startWebServer() {
 		origin: '*',
 	});
 
-	app.post("/", (r, p) => handlePostRequest(r, p, config))
+	app.post("/", (r, p) => handlePostRequest(r, p, config).catch(console.error))
     
     app.listen({port: Number(process.env["PORT"] || 3000), host: process.env["MODE"] === "dev" ? "localhost" : "0.0.0.0"}, (_err, address) => {
         console.log(`${app.printRoutes()}\n\nOnline at: ${address}`)
     })
 }
 
-//createCommands()
+createCommands()

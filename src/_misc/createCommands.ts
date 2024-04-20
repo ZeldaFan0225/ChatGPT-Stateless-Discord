@@ -34,6 +34,69 @@ export async function createCommands() {
                 description: "Whether to show the response or not",
                 required: false,
             }]
+        },
+        {
+            name: "image",
+            description: "Generate an image with the AI",
+            type: 1,
+            integration_types: [1],
+            contexts: [0, 1, 2],
+            options: [{
+                type: 3,
+                name: "prompt",
+                description: "The prompt to use",
+                required: true,
+            },{
+                type: 3,
+                name: "aspect_ratio",
+                description: "The images aspect ratio",
+                required: false,
+                choices: [{
+                    name: "1:1",
+                    value: "1:1"
+                },{
+                    name: "16:9",
+                    value: "16:9"
+                },{
+                    name: "21:9",
+                    value: "21:9"
+                },{
+                    name: "2:3",
+                    value: "2:3"
+                },{
+                    name: "3:2",
+                    value: "3:2"
+                },{
+                    name: "4:5",
+                    value: "4:5"
+                },{
+                    name: "5:4",
+                    value: "5:4"
+                },{
+                    name: "9:16",
+                    value: "9:16"
+                },{
+                    name: "9:21",
+                    value: "9:21"
+                }]
+            },{
+                type: 3,
+                name: "model",
+                description: "The model to use",
+                required: false,
+                choices: [{
+                    name: "sd3",
+                    value: "sd3"
+                },{
+                    name: "sd3-turbo",
+                    value: "sd3-turbo"
+                }]
+            },{
+                type: 5,
+                name: "ephemeral",
+                description: "Whether to show the response or not",
+                required: false,
+            }]
         }
     ]
 

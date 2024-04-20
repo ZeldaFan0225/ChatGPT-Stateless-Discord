@@ -25,6 +25,9 @@ export async function handlePostRequest(req: FastifyRequest, rep: FastifyReply, 
         return rep.code(401).send({message: "Invalid request"})
     }
 
+    const user = body?.["member"]?.["user"] || body?.["user"]
+    body["user"] = user
+
     switch(body["type"]) {
         case 1: {
             rep.code(200).send({type: 1, content: "PONG"});

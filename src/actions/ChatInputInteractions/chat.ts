@@ -1,4 +1,4 @@
-import { ChatGPT } from "../../classes/ChatCompletion/ChatGPT";
+import { ChatGPT } from "../../classes/Connectors/ChatGPT";
 import { ChatInputInteraction } from "../../classes/ChatInputInteraction";
 import { ChatCompletionMessages } from "../../types";
 
@@ -53,7 +53,7 @@ export async function handleChat(interaction: ChatInputInteraction) {
         if(getsFlagged) return await interaction.error("Your prompt has been flagged.")
     }
 
-    const completion = await ChatGPT.requestChatCompletion(messages, model_config, interaction.data.id)
+    const completion = await ChatGPT.requestChatCompletion(messages, model_config, interaction.data.user.id)
 
     interaction.followUp({
         content: completion.choices[0]?.message.content || "No response",

@@ -45,6 +45,17 @@ export class Interaction {
             body: JSON.stringify(data)
         })
     }
+
+    async followUpWithFile(data: Record<string, any>, file: Blob, name: string) {
+        const formData = new FormData();
+        formData.set("payload_json", JSON.stringify(data));
+        formData.set("files[0]", file, name);
+
+        fetch(`${process.env["DISCORD_BASE_URL"]}/webhooks/${this.data.application_id}/${this.data.token}`, {
+            method: "POST",
+            body: formData
+        })
+    }
 }
 
 export interface BaseInteractionData {
@@ -67,4 +78,17 @@ export interface BaseInteractionData {
     token: string;
     type: number;
     version: number;
+    user: {
+        avatar: string | null;
+        avatar_decoration_data: null | {
+            asset: string;
+            sku_id: string;
+        };
+        clan: any;
+        discriminator: string;
+        global_name: string;
+        id: string;
+        public_flags: number;
+        username: string;
+    };
 }
