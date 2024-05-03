@@ -15,7 +15,7 @@ export class ChatGPT {
     }
 
     static async checkIfPromptGetsFlagged(message: string): Promise<boolean> {
-        const openai_req = await fetch(`https://api.openai.com/v1/moderations`, {
+        const openaiReq = await fetch(`https://api.openai.com/v1/moderations`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export class ChatGPT {
             })
         })
 
-        const data: OpenAIModerationResponse = await openai_req.json()
+        const data: OpenAIModerationResponse = await openaiReq.json()
         if(this.config.dev_config?.enabled && this.config.dev_config.debug_logs) console.log(data)
         return !!data?.results[0]?.flagged
     }

@@ -1,6 +1,4 @@
 import fastify from "fastify";
-import rate_limit from "@fastify/rate-limit"
-import cors from "@fastify/cors"
 import { readFileSync, existsSync } from "fs";
 import { Config } from "./types";
 import { handlePostRequest } from "./handlers/handlePostRequest";
@@ -32,15 +30,6 @@ async function startWebServer() {
 		ignoreTrailingSlash: true,
 		bodyLimit: 1024 * 64
 	})
-	
-	await app.register(rate_limit, {
-		timeWindow: '1 minute',
-		max: 200,
-	});
-	
-	await app.register(cors, {
-		origin: '*',
-	});
 
 	app.post("/", (r, p) => handlePostRequest(r, p, config).catch(console.error))
     
