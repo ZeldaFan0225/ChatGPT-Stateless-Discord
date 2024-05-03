@@ -31,8 +31,10 @@ Rename `template.env` to `.env` and `template.config.json` to `config.json`.
 
 1) Click "New Application"
 2) Give it a nice name, agree to the terms and create the app
-
-That was easy, wasn't it?
+3) Under "Bot" uncheck "Public Bot" if you want this Bot to be private
+4) Head over to "Installation"
+5) Uncheck "Guild Install" and check "User Install"
+6) Under "Install Link" select "Discord Provided Link", open the now shown link in your browser, authorize it and set it back to "None"
 
 ### 3. Locating the credentials you need
 
