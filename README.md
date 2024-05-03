@@ -81,6 +81,10 @@ pm2 start ./
 
 You might also want to set up a reverse proxy like nginx to get the requests to this app.
 
+# 7. Finishing up the setup
+
+The last step you need to do is take the IP or url (if you chose to use a domain with this) of your server and add it to your Discord app in the "General Information" tab under "Interactions Endpoint Url"
+
 ## Contributions
 
 I am currently not looking for any contributions but you are welcome to fork this repository.
