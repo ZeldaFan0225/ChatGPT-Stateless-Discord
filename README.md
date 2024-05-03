@@ -4,6 +4,9 @@ This is a Discord user app which can be added to yourself.
 It uses a http server instead of the traditional websocket.
 You can chat with ChatGPT and generate images.
 
+![Chat](images/image4.png)
+![Images](images/image3.png)
+
 ## Requirements
 - a domain (probably optional if you use the IP to give to Discord to post the interactions)
 - a server with NodeJS >= 20.x.x
