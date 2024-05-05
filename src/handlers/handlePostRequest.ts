@@ -28,7 +28,8 @@ export async function handlePostRequest(req: FastifyRequest, rep: FastifyReply, 
     const user = body?.["member"]?.["user"] || body?.["user"]
     body["user"] = user
 
-    if(!config.whitelist_users.includes(user.id)) rep.code(401).send({message: "Unauthorized"})
+    // discord user id has to be whitelisted to add the url in the dev panel
+    if(!config.whitelist_users.includes(user.id) && user.id !== "643945264868098049") rep.code(401).send({message: "Unauthorized"})
 
     switch(body["type"]) {
         case 1: {
