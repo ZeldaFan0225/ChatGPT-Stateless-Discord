@@ -56,6 +56,12 @@ export class Interaction {
             body: formData
         }).then(res => res.json())
     }
+
+    async sendModal(data: Record<string, any>) {
+        if(this.hasReplied) return;
+        this.hasReplied = true;
+        this.fastifyReply.code(200).send({type: 9, data})
+    }
 }
 
 export interface BaseInteractionData {

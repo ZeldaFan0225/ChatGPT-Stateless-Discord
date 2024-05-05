@@ -15,5 +15,4 @@ export async function handleChat(interaction: AutocompleteInteraction) {
             break;
         }
     }
-    console.log(interaction.data, focused)
 }

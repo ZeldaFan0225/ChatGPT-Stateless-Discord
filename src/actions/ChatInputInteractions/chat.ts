@@ -1,6 +1,7 @@
 import { ChatGPT } from "../../classes/Connectors/ChatGPT";
 import { ChatInputInteraction } from "../../classes/ChatInputInteraction";
 import { ChatCompletionMessages } from "../../types";
+import { constructAvatarUrl } from "../../_misc/utils";
 
 export async function handleChat(interaction: ChatInputInteraction) {
     const prompt = interaction.data.data.options.find(option => option.name === "message")?.value || ""
@@ -56,15 +57,43 @@ export async function handleChat(interaction: ChatInputInteraction) {
     const completion = await ChatGPT.requestChatCompletion(messages, model_config, interaction.data.user.id)
 
     const reply = completion.choices[0]?.message.content || "No response";
+    const components = [{
+        type: 1,
+        components: [{
+            type: 2,
+            style: 1,
+            label: "Followup",
+            custom_id: "followup",
+        }]
+    }]
+    const embeds = [{
+        author: {
+            name: interaction.data.user.global_name || interaction.data.user.username,
+            icon_url: constructAvatarUrl({avatar: interaction.data.user.avatar, user_id: interaction.data.user.id})
+        },
+        color: 0x5865F2,
+        description: prompt,
+        footer: {text: `${model} | ${system_instruction_name}`},
+        image: imageData?.url ? {url: imageData.url} : undefined,
+    }]
+
+    const additionalDataPayload: Record<string, any> = {}
+    if(interaction.config.allow_followup) {
+        additionalDataPayload["components"] = components
+        additionalDataPayload["embeds"] = embeds
+    }
+    
     if(reply.length > 2000) {
         const res = await interaction.followUpWithFile({
-            flags: ephemeral ? 64 : 0
+            flags: ephemeral ? 64 : 0,
+            ...additionalDataPayload
         }, new Blob([reply], {type: "text/plain"}), "response.txt")
         if(interaction.config.dev_config?.enabled && interaction.config.dev_config.debug_logs) console.log(res?.errors || res)
     } else {
         const res = await interaction.followUp({
             content: reply,
-            flags: ephemeral ? 64 : 0
+            flags: ephemeral ? 64 : 0,
+            ...additionalDataPayload
         })
         if(interaction.config.dev_config?.enabled && interaction.config.dev_config.debug_logs) console.log(res?.errors || res)
     }

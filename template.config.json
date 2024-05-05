@@ -1,5 +1,6 @@
 {
     "whitelist_users": [],
+    "allow_followup": true,
     "default_model": "GPT 3.5",
     "default_system_instruction": "default",
     "dev_config": {

@@ -5,6 +5,10 @@ import { Config } from "../types";
 import { ChatInputInteraction, ChatInputInteractionData } from "../classes/ChatInputInteraction";
 import { AutocompleteInteraction, AutocompleteInteractionData } from "../classes/AutocompleteInteraction";
 import { handleAutocomplete } from "./handleAutocomplete";
+import { ComponentInteraction, ComponentInteractionData } from "../classes/ComponentInteraction";
+import { handleComponent } from "./handleComponents";
+import { ModalInteraction, ModalInteractionData } from "../classes/ModalInteraction";
+import { handleModal } from "./handleModal";
 
 export async function handlePostRequest(req: FastifyRequest, rep: FastifyReply, config: Config) {
     const body = req.body as Record<string, any>
@@ -25,12 +29,13 @@ export async function handlePostRequest(req: FastifyRequest, rep: FastifyReply, 
         return rep.code(401).send({message: "Invalid request"})
     }
 
-    const user = body?.["member"]?.["user"] || body?.["user"]
+    const user = body?.["user"] || body?.["member"]?.["user"]
     body["user"] = user
 
     // discord user id has to be whitelisted to add the url in the dev panel
     if(!config.whitelist_users.includes(user.id) && user.id !== "643945264868098049") rep.code(401).send({message: "Unauthorized"})
 
+    if(config.dev_config?.enabled && config.dev_config.debug_logs) console.log(body)
     switch(body["type"]) {
         case 1: {
             rep.code(200).send({type: 1, content: "PONG"});
@@ -41,9 +46,19 @@ export async function handlePostRequest(req: FastifyRequest, rep: FastifyReply, 
             handleApplicationCommand(interaction).catch(console.error)
             break;
         }
+        case 3: {
+            const interaction = new ComponentInteraction(req, rep, body as ComponentInteractionData, config)
+            handleComponent(interaction).catch(console.error)
+            break;
+        }
         case 4: {
             const interaction = new AutocompleteInteraction(req, rep, body as AutocompleteInteractionData, config)
             handleAutocomplete(interaction).catch(console.error)
+            break;
+        }
+        case 5: {
+            const interaction = new ModalInteraction(req, rep, body as ModalInteractionData, config)
+            handleModal(interaction).catch(console.error)
             break;
         }
     }

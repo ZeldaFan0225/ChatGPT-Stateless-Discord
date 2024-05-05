@@ -1,5 +1,6 @@
 export interface Config {
     whitelist_users: string[];
+    allow_followup: boolean;
     default_model: string;
     default_system_instruction: string;
     dev_config?: {
