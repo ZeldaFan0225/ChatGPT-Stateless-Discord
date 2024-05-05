@@ -32,7 +32,7 @@ export class ChatGPT {
     }
     
     static async requestChatCompletion(messages: ChatCompletionMessages[], model_config: ModelConfiguration, user_id: string) {
-        if(this.config.dev_config?.enabled && this.config.dev_config.debug_logs) console.log(messages, model_config)
+        if(this.config.dev_config?.enabled && this.config.dev_config.debug_logs) console.log(JSON.stringify(messages, null, 4), model_config)
         const total_count = messages.map(m =>
             this.tokenizeString(
                 typeof m.content === "string" ?
