@@ -1,3 +1,4 @@
+import { handleAudio } from "../actions/ChatInputInteractions/audio";
 import { handleChat } from "../actions/ChatInputInteractions/chat";
 import { handleDalle3 } from "../actions/ChatInputInteractions/dalle3";
 import { handleImage } from "../actions/ChatInputInteractions/image";
@@ -15,6 +16,10 @@ export async function handleApplicationCommand(interaction: ChatInputInteraction
         }
         case "dalle3": {
             handleDalle3(interaction)
+            break;
+        }
+        case "audio": {
+            handleAudio(interaction)
             break;
         }
     }

@@ -154,6 +154,68 @@ export async function createCommands() {
                 description: "Whether to show the response or not",
                 required: false,
             }]
+        },
+        {
+            name: "audio",
+            description: "Generate an audio",
+            type: 1,
+            integration_types: [1],
+            contexts: [0, 1, 2],
+            options: [{
+                type: 3,
+                name: "input",
+                description: "The input to convert to audio",
+                required: true,
+            },{
+                type: 3,
+                name: "model",
+                description: "The model to use",
+                required: true,
+                choices: [{
+                    name: "tts-1",
+                    value: "tts-1"
+                },{
+                    name: "tts-1-hd",
+                    value: "tts-1-hd"
+                }]
+            },{
+                type: 3,
+                name: "voice",
+                description: "The voice to use",
+                required: true,
+                choices: [{
+                    name: "alloy",
+                    value: "alloy"
+                },{
+                    name: "echo",
+                    value: "echo"
+                },{
+                    name: "fable",
+                    value: "fable"
+                },{
+                    name: "onyx",
+                    value: "onyx"
+                },{
+                    name: "nova",
+                    value: "nova"
+                },{
+                    name: "shimmer",
+                    value: "shimmer"
+                
+                }]
+            },{
+                type: 10,
+                name: "speed",
+                description: "The speed to generate the audio at",
+                required: false,
+                min_value: 0.25,
+                max_value: 4
+            },{
+                type: 5,
+                name: "ephemeral",
+                description: "Whether to show the response or not",
+                required: false,
+            }]
         }
     ]
 
