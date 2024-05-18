@@ -57,6 +57,19 @@ export class Interaction {
         }).then(res => res.json())
     }
 
+    async followUpWithFiles(data: Record<string, any>, files: {file: Blob, name: string}[]) {
+        const formData = new FormData();
+        formData.set("payload_json", JSON.stringify(data));
+        for(let i = 0; i < files.length; i++) {
+            formData.set(`files[${i}]`, files[i]!.file, files[i]!.name);
+        }
+
+        return await fetch(`${process.env["DISCORD_BASE_URL"]}/webhooks/${this.data.application_id}/${this.data.token}`, {
+            method: "POST",
+            body: formData
+        }).then(res => res.json())
+    }
+
     async sendModal(data: Record<string, any>) {
         if(this.hasReplied) return;
         this.hasReplied = true;

@@ -22,6 +22,7 @@ if (existsSync(`${process.cwd()}/.env`)) {
 const config: Config = JSON.parse(readFileSync("./config.json").toString())
 ChatGPT.config = config
 StabilityAI.config = config
+Dalle3.config = config
 
 startWebServer()
 
