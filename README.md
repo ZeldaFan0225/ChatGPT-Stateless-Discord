@@ -69,7 +69,7 @@ You should:
 
 One last thing, `default_model` should be a key of `models` and `default_system_instruction` should be in `selectable_system_instructions`
 
-## 6. Actually starting the app
+### 6. Actually starting the app
 
 I am no professional but I use the following commands to get this app started. I use pm2 to manage the app.
 (In the `ChatGPT-Stateless-Discord` directory)
@@ -81,7 +81,7 @@ pm2 start ./
 
 You might also want to set up a reverse proxy like nginx to get the requests to this app.
 
-# 7. Finishing up the setup
+### 7. Finishing up the setup
 
 The last step you need to do is take the IP or url (if you chose to use a domain with this) of your server and add it to your Discord app in the "General Information" tab under "Interactions Endpoint Url"
 
