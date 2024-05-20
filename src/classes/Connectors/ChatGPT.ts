@@ -41,6 +41,24 @@ export class ChatGPT {
             ).count + 5
         ).reduce((a, b) => a + b) + 2
 
+        const payload = {
+            model: model_config.model,
+            messages,
+            temperature: model_config?.defaults?.temperature,
+            top_p: model_config?.defaults?.top_p,
+            frequency_penalty: model_config?.defaults?.frequency_penalty,
+            presence_penalty: model_config?.defaults?.presence_penalty,
+            logit_bias: model_config?.defaults?.logit_bias,
+            logprobs: model_config?.defaults?.logprobs,
+            top_logprobs: model_config?.defaults?.top_logprobs,
+            response_format: model_config.defaults?.response_format,
+            seed: model_config?.defaults?.seed,
+            stop: model_config?.defaults?.stop,
+            max_tokens: model_config?.max_completion_tokens === -1 ? undefined : ((model_config?.max_model_tokens ?? 4096) - total_count),
+            user: user_id
+        }
+        
+        if(this.config.dev_config?.enabled && this.config.dev_config.debug_logs) console.log(payload)
 
         const openai_req = await fetch(`${model_config.base_url ?? "https://api.openai.com/v1"}/chat/completions`, {
             method: "POST",
@@ -48,22 +66,7 @@ export class ChatGPT {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${process.env[model_config.env_token_name || "OPENAI_TOKEN"]}`
             },
-            body: JSON.stringify({
-                model: model_config.model,
-                messages,
-                temperature: model_config?.defaults?.temperature,
-                top_p: model_config?.defaults?.top_p,
-                frequency_penalty: model_config?.defaults?.frequency_penalty,
-                presence_penalty: model_config?.defaults?.presence_penalty,
-                logit_bias: model_config?.defaults?.logit_bias,
-                logprobs: model_config?.defaults?.logprobs,
-                top_logprobs: model_config?.defaults?.top_logprobs,
-                response_format: model_config.defaults?.response_format,
-                seed: model_config?.defaults?.seed,
-                stop: model_config?.defaults?.stop,
-                max_tokens: model_config?.max_completion_tokens === -1 ? undefined : ((model_config?.max_model_tokens ?? 4096) - total_count),
-                user: user_id
-            })
+            body: JSON.stringify(payload)
         })
 
         const data: OpenAIChatCompletionResponse = await openai_req.json()
