@@ -7,6 +7,7 @@ import { ChatGPT } from "./classes/Connectors/ChatGPT";
 import { StabilityAI } from "./classes/Connectors/StabilityAI";
 import { Dalle3 } from "./classes/Connectors/Dalle3";
 import { TTS } from "./classes/Connectors/TTS";
+//import { Pool } from "pg";
 
 const RE_INI_KEY_VAL = /^\s*([\w.-]+)\s*=\s*(.*)?\s*$/;
 
@@ -26,6 +27,16 @@ ChatGPT.config = config
 StabilityAI.config = config
 Dalle3.config = config
 TTS.config = config
+
+/*const connection = new Pool({
+    user: process.env["DB_USERNAME"],
+    host: process.env["DB_IP"],
+    database: process.env["DB_NAME"],
+    password: process.env["DB_PASSWORD"],
+    port: Number(process.env["DB_PORT"]),
+})
+
+connection.query("CREATE TABLE IF NOT EXISTS chats (id SERIAL PRIMARY KEY, user_id VARCHAR(100) NOT NULL, messages JSON[] DEFAULT '{}', model VARCHAR(1000) NOT NULL, created TIMESTAMP DEFAULT CURRENT_TIMESTAMP);").catch(console.error)'*/
 
 startWebServer()
 

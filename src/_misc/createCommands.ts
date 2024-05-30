@@ -25,7 +25,17 @@ export async function createCommands() {
                 autocomplete: true
             },{
                 type: 11,
-                name: "image",
+                name: "image1",
+                description: "An image to show with the prompt",
+                required: false,
+            },{
+                type: 11,
+                name: "image2",
+                description: "An image to show with the prompt",
+                required: false,
+            },{
+                type: 11,
+                name: "image3",
                 description: "An image to show with the prompt",
                 required: false,
             },{
