@@ -16,14 +16,14 @@ export async function handleFollowup(interaction: ModalInteraction) {
     if(interaction.data.message.interaction_metadata.user_id !== interaction.data.user.id) return await interaction.error("You can only follow up on your own messages.")
 
     const userMessages = []
-    if(interaction.data.message.embeds[0]!["image"]) {
-        userMessages.push({
+    if(interaction.data.message.embeds.length > 1) {
+        userMessages.push(interaction.data.message.embeds.map(e => ({
             type: "image_url" as const,
             image_url: {
-                url: interaction.data.message.embeds[0]!["image"].url as string,
+                url: e["image"].url as string,
                 detail: "auto" as const
             }
-        })
+        })))
     }
     
     const messages = [
